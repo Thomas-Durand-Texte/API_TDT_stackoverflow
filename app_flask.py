@@ -25,7 +25,7 @@ def my_form():
 
 # @app.route('/predict/<string:sentence>')
 @app.route('/', methods=['POST'])
-def predict(sentence):
+def predict():
     sentence = request.form['text']
     prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
