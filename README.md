@@ -11,7 +11,6 @@ The application has been tested off-line with:
 The application has been tested on a AWS EC2 cpu instance.
 
 Statistical results on test data:
-| --- | --- |
 | | javascript | python | java | android | c++ | c# | angular | ios | php | swift
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 precision (%) | 90.27 | 97.48 | 88.90 | 94.63 | 94.36 | 91.54 | 89.61 | 86.92 | 94.60 | 81.51 |
