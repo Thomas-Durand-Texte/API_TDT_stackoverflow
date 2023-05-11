@@ -18,8 +18,10 @@ prediction_tags = predictor.get_prediction_tags()
 #     return 'Welcome. To predict some tags, please go to: ' \
 #            '/predict/your sentence'
 
+@app.route('/')
 def my_form():
     return render_template('my-form.html')
+
 
 # @app.route('/predict/<string:sentence>')
 @app.route('/', methods=['POST'])
