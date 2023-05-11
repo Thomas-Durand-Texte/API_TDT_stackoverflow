@@ -36,7 +36,7 @@ def predict():
     out = "".join([f'<{tag}>' for tag in tags])
     # print("out:", out)
     # print('cleaned sentence:', cleaned_sentence)
-    return render_template('view_suggested_tags.html', 
+    return render_template('view_suggested_tags.html',
                            cleaned_entence=cleaned_sentence,
                            suggested_tags=out)
     # return [f"{out}"][0]
