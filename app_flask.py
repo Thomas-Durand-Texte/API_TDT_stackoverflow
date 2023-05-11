@@ -28,7 +28,17 @@ def predict(sentence):
         return 'no appropirate tag detected'
     out = ''.join([f'<{tag}>' for tag in tags])
     print('out:', out)
-    return out
+    return str(out)
+
+
+@app.route('/')
+def salut():
+    return 'Salut tout le Monde !'
+
+
+@app.route('/salut_perso/<string:first_name>')
+def salut_toi(first_name):
+    return f"Salut {first_name} !"
 
 
 # test_sentence = "I Can't load my python module"
