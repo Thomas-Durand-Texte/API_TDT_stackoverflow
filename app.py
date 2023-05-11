@@ -29,13 +29,13 @@ def predict():
     sentence = request.form['text']
     cleaned_sentence, prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
-    print('tags:', tags)
+    # print('tags:', tags)
     if len(tags) == 0:
-        return 'no appropirate tag detected'
+        return 'no appropriate tag detected'
     # tags = [f'<{tag}>' for tag in tags]
     out = "".join([f'<{tag}>' for tag in tags])
-    print("out:", out)
-    print('cleaned sentence:', cleaned_sentence)
+    # print("out:", out)
+    # print('cleaned sentence:', cleaned_sentence)
     return render_template('view_suggested_tags.html', 
                            cleaned_entence=cleaned_sentence,
                            suggested_tags=out)
