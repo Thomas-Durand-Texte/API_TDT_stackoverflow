@@ -1,5 +1,5 @@
 # %% import packages
-from flask import Flask
+from flask import Flask, request, render_template
 
 import pickle
 from funcs import clean_body, TagPredictor
@@ -13,13 +13,16 @@ with open('final.pickle', 'rb') as file:
 prediction_tags = predictor.get_prediction_tags()
 
 
-@app.route('/')
-def message_initial():
-    return 'Welcome. To predict some tags, please go to: ' \
-           '/predict/your sentence'
+# @app.route('/')
+# def message_initial():
+#     return 'Welcome. To predict some tags, please go to: ' \
+#            '/predict/your sentence'
 
+def my_form():
+    return render_template('my-form.html')
 
-@app.route('/predict/<string:sentence>')
+# @app.route('/predict/<string:sentence>')
+@app.route('/', methods=['POST'])
 def predict(sentence):
     prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
