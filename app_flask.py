@@ -5,8 +5,8 @@ import pickle
 from funcs import clean_body, TagPredictor
 ###
 
-# % initialization
-# app = Flask(__name__)
+# %% initialization
+app = Flask(__name__)
 
 with open('final.pickle', 'rb') as file:
     predictor = TagPredictor(pickle.load(file))
