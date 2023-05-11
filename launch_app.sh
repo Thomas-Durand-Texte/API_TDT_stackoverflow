@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python app_flask.py
+python3 app_flask.py
