@@ -19,9 +19,9 @@ def message_initial():
            '/predict/your sentence'
 
 
-@app.route('/predict/<string:phrase>')
-def predict(phrase):
-    prediction = predictor.predict(test_sentence)
+@app.route('/predict/<string:sentence>')
+def predict(sentence):
+    prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
     tags = ''.join([f'<{tag}>' for tag in tags])
     return tags
