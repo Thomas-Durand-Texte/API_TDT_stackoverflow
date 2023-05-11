@@ -1,6 +1,5 @@
 flask==2.3.2
 
-pickle
 numpy
 contractions
 sentence-transformers
