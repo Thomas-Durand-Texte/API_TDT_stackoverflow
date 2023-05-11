@@ -23,10 +23,11 @@ def message_initial():
 def predict(sentence):
     prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
-    tags = ''.join([f'<{tag}>' for tag in tags])
-    if tags == '':
-        tags = 'no appropirate tag detected'
-    return tags
+    print('tags:', tags)
+    if len(tags) == 0:
+        return 'no appropirate tag detected'
+    out = ''.join([f'<{tag}>' for tag in tags])
+    return out
 
 
 # test_sentence = "I Can't load my python module"
