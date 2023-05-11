@@ -24,6 +24,8 @@ def predict(sentence):
     prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
     tags = ''.join([f'<{tag}>' for tag in tags])
+    if tags == '':
+        tags = 'no appropirate tag detected'
     return tags
 
 
