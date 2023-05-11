@@ -27,6 +27,7 @@ def predict(sentence):
     if len(tags) == 0:
         return 'no appropirate tag detected'
     out = ''.join([f'<{tag}>' for tag in tags])
+    print('out:', out)
     return out
 
 
