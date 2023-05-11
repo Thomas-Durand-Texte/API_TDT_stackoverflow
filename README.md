@@ -5,6 +5,6 @@ This application suggests tags for a given input text.
 
 
 The application has been tested off-line with:
-python -m flask run
+`python -m flask run`
 
 The application has been tested on a AWS EC2 cpu instance.
