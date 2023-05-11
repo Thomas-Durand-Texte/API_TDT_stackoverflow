@@ -77,80 +77,25 @@ def remove_special_characters(text):
 ###
 
 
-class Vectorized():
+class TagPredictor():
     """Class pour vectoriser les données texte et gérer la modélisation
     """
-    def __init__(self):
-        self.x = {}
-        self.scaler = None
-        self.b_scale_x = False
-        self.reset_model()
-        self.reset_pca()
-
-    def copy_data_from_dict(self, dict):
-        """copy data from another vectorized. This method is used to update the
-        class without re-train the vectorizer and the classifier.
+    def __init__(self, dict_data: dict):
+        """initialisation of the class TagPredictor
 
         Args:
-            dict (dict): _description_
+            dict_data (dict): input data of the pre-trained model
         """
-        for attribut, value in dict.items():
+        for attribut, value in dict_data.items():
             setattr(self, attribut.replace(' ', '_'), value)
         self.vectorizer = SentenceTransformer('all-MiniLM-L6-v2')
 
-    def reset_pca(self):
-        self.pca = None
-        self.use_pca = False
-
-    def reset_model(self):
-        self.clf = None
-        self.optimized_thresholds = None
-
-    def get_vocabulary(self):
-        return self.vectorizer.get_feature_names_out()
-
     def transform(self, x):
-        if self.method == 'word2vec':
-            out = np.empty((len(x), 300), dtype=float)
-            for out_i, xi in zip(out, x):
-                out_i[:] = self.vectorizer.get_mean_vector(xi.split(' '))
-            return out
-        elif self.method == 'sbert':
-            out = self.vectorizer.encode([x])
-            # print('out:', out.shape)
-            return out
-        elif self.method == 'use':
-            # return self.vectorizer(x.values)
-            # AJOUT DE BOUCLE FOR POUR UN SUIVI
-            x = x.values
-            v0 = self.vectorizer(x[:1])
-            out = np.empty_like(v0, shape=(len(x), len(v0[0])))
-            out[0, :] = v0[:]
-            print('USE vectorization:')
-            for i in range(1, len(x), 10):
-                print(f'{i/len(x):.2%}', end='\r')
-                out[i:i+10] = self.vectorizer(x[i:i+10])
-            print(f'{1:.2%}    ', end='\n'*2)
-            # return self.vectorizer.encode(x.values)
-            return out
-        else:
-            return self.vectorizer.transform(x)
-
-    def set(self, which: str, x):
-        self.x[which] = self.transform(x)
-
-    def get(self, which: str):
-        x = self.x[which]
-        if hasattr(x, 'todense'):
-            x = x.todense()
-        return np.asarray(x)
+        out = self.vectorizer.encode([x])
+        return out
 
     def scale(self, x):
-        if self.b_scale_x:
-            if self.use_pca:
-                return self.pca.transform(self.scaler.transform(x))
-            return self.scaler.transform(x)
-        return x
+        return self.scaler.transform(x)
 
     def predict(self, text: str):
         text = clean_body(text)
@@ -158,9 +103,6 @@ class Vectorized():
         vector = self.transform(text)
         vector = self.scale(vector)
         return self.predict_optim_threshold(vector)
-
-    def predict_proba(self, text):
-        return self.clf.predict_proba(self.scale(self.get(which)))
 
     def predict_optim_threshold(self, scaled_vector):
         y_pred_proba = self.clf.predict_proba(scaled_vector)
