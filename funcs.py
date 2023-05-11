@@ -102,7 +102,7 @@ class TagPredictor():
         # print('cleaned text:', text)
         vector = self.transform(text)
         vector = self.scale(vector)
-        return self.predict_optim_threshold(vector)
+        return text, self.predict_optim_threshold(vector)
 
     def predict_optim_threshold(self, scaled_vector):
         y_pred_proba = self.clf.predict_proba(scaled_vector)

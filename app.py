@@ -27,24 +27,20 @@ def my_form():
 @app.route('/', methods=['POST'])
 def predict():
     sentence = request.form['text']
-    prediction = predictor.predict(sentence)
+    cleaned_sentence, prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
     print('tags:', tags)
     if len(tags) == 0:
         return 'no appropirate tag detected'
-    out = ''.join([f'<{tag}>' for tag in tags])
-    print('out:', out)
-    return str(out)
-
-
-@app.route('/')
-def salut():
-    return 'Salut tout le Monde !'
-
-
-@app.route('/salut_perso/<string:first_name>')
-def salut_toi(first_name):
-    return f"Salut {first_name} !"
+    # tags = [f'<{tag}>' for tag in tags]
+    out = "".join([f'<{tag}>' for tag in tags])
+    print("out:", out)
+    print('cleaned sentence:', cleaned_sentence)
+    return render_template('view_suggested_tags.html', 
+                           cleaned_entence=cleaned_sentence,
+                           suggested_tags=out)
+    # return [f"{out}"][0]
+    # return 'test affichage'
 
 
 # test_sentence = "I Can't load my python module"
