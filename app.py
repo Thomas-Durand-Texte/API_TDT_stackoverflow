@@ -51,10 +51,8 @@ def predict_from_url(sentence):
 
 @app.route('/predict_form', methods=['POST'])
 def predict_from_submit():
-    print('TEST')
     sentence = request.form['text']
     out, cleaned_sentence = predict(sentence)
-    print('TEST 2')
     return render_template('view_suggested_tags.html',
                            cleaned_entence=cleaned_sentence,
                            suggested_tags=out)
@@ -70,6 +68,7 @@ def predict_from_submit():
 
 
 if __name__ == '__main__':
+    print('Running app...')
     app.run(host="0.0.0.0")  # dangereux potentiellement host="0.0.0.0"
 
 # %%
