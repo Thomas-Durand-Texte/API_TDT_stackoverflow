@@ -1,5 +1,5 @@
 # %% import packages
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
 import pickle
 from funcs import clean_body, TagPredictor
@@ -18,29 +18,46 @@ prediction_tags = predictor.get_prediction_tags()
 #     return 'Welcome. To predict some tags, please go to: ' \
 #            '/predict/your sentence'
 
-@app.route('/')
-def my_form():
-    return render_template('my-form.html')
-
-
-# @app.route('/predict/<string:sentence>')
-@app.route('/', methods=['POST'])
-def predict():
-    sentence = request.form['text']
+def predict(sentence):
     cleaned_sentence, prediction = predictor.predict(sentence)
     tags = prediction_tags[prediction > 0]
     # print('tags:', tags)
     if len(tags) == 0:
-        return 'no appropriate tag detected'
+        return 'no appropriate tag detected', cleaned_sentence
     # tags = [f'<{tag}>' for tag in tags]
     out = "".join([f'<{tag}>' for tag in tags])
     # print("out:", out)
     # print('cleaned sentence:', cleaned_sentence)
+    return out, cleaned_sentence
+    # return [f"{out}"][0]
+    # return 'test affichage'
+
+
+@app.route('/')
+def display_initial():
+    return render_template('form-init.html')
+
+
+@app.route('/predict_form')
+def submit_form():
+    return render_template('form-submit.html')
+
+
+@app.route('/predict/<string:sentence>')
+def predict_from_url(sentence):
+    out, _ = predict(sentence)
+    return jsonify(out)
+
+
+@app.route('/predict_form', methods=['POST'])
+def predict_from_submit():
+    print('TEST')
+    sentence = request.form['text']
+    out, cleaned_sentence = predict(sentence)
+    print('TEST 2')
     return render_template('view_suggested_tags.html',
                            cleaned_entence=cleaned_sentence,
                            suggested_tags=out)
-    # return [f"{out}"][0]
-    # return 'test affichage'
 
 
 # test_sentence = "I Can't load my python module"
@@ -53,6 +70,6 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0")  # dangereux potentiellement host="0.0.0.0"
 
 # %%
