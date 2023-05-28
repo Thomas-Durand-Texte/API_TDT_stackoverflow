@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name api-tdt-stackoverflow www.api-tdt-stackoverflow;
+    server_name api-tdt-stackoverflow.fr www.api-tdt-stackoverflow.fr;
 
     location / {
         include proxy_params;
