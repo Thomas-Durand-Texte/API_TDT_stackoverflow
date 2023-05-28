@@ -16,7 +16,7 @@ sudo ln -sf /etc/nginx/sites-available/${projectname} /etc/nginx/sites-enabled
 
 sudo nginx -t
 sudo systemctl restart nginx
-sudo ufw allow 'Nginx Full'
+sudo ufw allow 'Nginx HTTP'
 
 
 
