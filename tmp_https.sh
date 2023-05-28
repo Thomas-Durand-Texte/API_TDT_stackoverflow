@@ -11,12 +11,12 @@ sudo systemctl enable ${projectname}
 
 sudo systemctl status ${projectname}
 
-sudo cp ./setup_https/${projectname} /etc/nginx/sites-available
-sudo ln -sf /etc/nginx/sites-available/${projectname} /etc/nginx/sites-enabled
+# sudo cp ./setup_https/${projectname} /etc/nginx/sites-available
+# sudo ln -sf /etc/nginx/sites-available/${projectname} /etc/nginx/sites-enabled
 
-sudo nginx -t
-sudo systemctl restart nginx
-sudo ufw allow 'Nginx HTTP'
+# sudo nginx -t
+# sudo systemctl restart nginx
+# sudo ufw allow 'Nginx HTTP'
 
 
 
