@@ -1,6 +1,9 @@
 #!/bin/bash
 projectname=API_TDT_stackoverflow
 
+sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
+
+
 sudo cp ./setup_https/${projectname}.service /etc/systemd/system 
 sudo systemctl daemon-reload
 sudo systemctl start ${projectname}
