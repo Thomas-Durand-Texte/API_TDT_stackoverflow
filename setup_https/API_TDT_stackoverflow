@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name API-TDT-stackoverflow www.API-TDT-stackoverflow;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/API_TDT_stackoverflow/API_TDT_stackoverflow.sock;
+    }
+}
